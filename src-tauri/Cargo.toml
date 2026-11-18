@@ -1,0 +1,33 @@
+[package]
+name = "generator-raportow"
+version = "0.1.0"
+description = "Lokalny generator raportów PDF Google Ads"
+authors = ["alldayit.pl"]
+edition = "2021"
+
+[lib]
+name = "generator_raportow_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+tokio = { version = "1", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+log = "0.4"
+env_logger = "0.11"
+sqlx = { version = "0.9.0", features = ["runtime-tokio", "sqlite"] }
+opener = "0.8"
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+opt-level = "s"
+panic = "abort"
